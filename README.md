@@ -2,6 +2,8 @@
 
 A Python game built with the [Ursina Engine](https://github.com/pokepetter/ursina) that simulates a tennis court environment. It features ball physics, realistic bounces with spin, and visual cues like a fading contact marker that shows where the ball changes direction.
 
+![Demo GIF](Assets/demo.gif)
+
 ## Features
 
 - **3D Tennis Court Environment:** Ground, net, court lines, and a bounding box for better depth perception.
