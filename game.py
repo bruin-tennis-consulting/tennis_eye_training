@@ -195,7 +195,7 @@ ball = Entity(
     position=Vec3(0, 1.5, 10)
 )
 # Assign a texture with seam lines (ensure the file exists in your assets folder).
-ball.texture = load_texture('tennis_ball_seams.png')
+ball.texture = load_texture('./Assets/tennis_ball_seams.png')
 SPIN_RATE = 1000  # Degrees per second.
 
 
