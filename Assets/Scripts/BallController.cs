@@ -15,7 +15,7 @@ public class BallController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Vector3 ballPos = rb.position;
         //Vector3 dir = (courtTarget - ballPos).normalized;
-        rb.velocity = initialVelocity;
+        rb.linearVelocity = initialVelocity;
 
 
 
