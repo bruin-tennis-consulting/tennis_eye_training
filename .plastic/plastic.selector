@@ -1,4 +1,0 @@
-repository "Tennis/Tennis@1375804977790@cloud"
-  path "/"
-    br "/main"
-    co "/main"
