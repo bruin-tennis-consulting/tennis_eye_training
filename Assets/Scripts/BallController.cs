@@ -9,6 +9,9 @@ public class BallController : MonoBehaviour
 
     private Rigidbody rb;
     private Vector3 gravity = new Vector3(0f, -9.81f, 0f); // 0x, -9.81y, 0z
+    private float ballArea = (Mathf.PI* 1.204f * Mathf.Pow(0.33f, 2.0f)); // Replace 1.204f with ball radius
+
+    private 
 
     void Start()
     {
@@ -16,9 +19,6 @@ public class BallController : MonoBehaviour
         Vector3 ballPos = rb.position;
         //Vector3 dir = (courtTarget - ballPos).normalized;
         rb.linearVelocity = initialVelocity;
-
-
-
     }
 
     void FixedUpdate()
@@ -26,24 +26,50 @@ public class BallController : MonoBehaviour
         // Apply custom gravity for faster fall
         rb.AddForce(gravity, ForceMode.Acceleration);
 
-        // Handle Rotation
-        // transform.Rotate(Vector3.right, spinSpeed * Time.fixedDeltaTime, Space.Self);
+        // Apply Rotation?
+
+        // Magnus Force
+        float C_L = 1.0f / (2.0f + rb.linearVelocity.magnitude / rb.angularVelocity.magnitude); // Lift Coefficient
+        float F_M = 0.5f * C_L * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f); // Implement wind speed later
+        Vector3 Force_Magnus = Vector3.Cross(rb.angularVelocity, rb.linearVelocity).normalized * F_M;
+        rb.AddForce(Force_Magnus, ForceMode.Acceleration);
+
+        // Drag Force
+        float C_d = 0.55f;
+        float F_d = 0.5f * C_d * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f);
+        Vector3 Force_Drag = -1 * rb.linearVelocity.normalized * F_d;
+        rb.AddForce(Force_Drag, ForceMode.Acceleration);
+
+
+        // 𝐹𝑑 = 𝐶𝑑𝐴𝑣2/2
     }
 }
 
 
 /*
- 
-CHECKLIST:
-1. Mass     DONE
-2. Sphere Collider(radius?)      DONE
-3. Continuous Dynamic collision detection      DONE
-4. Time step ≤ 0.005 s to avoid tunnelling      DONE
-5. Physic Material on ball & court (bounciness ≈ 0.74, frictions tuned per surface)
-6. Gravity (–9.81 m s⁻²)
-7. Quadratic air drag ½ ρ Cd A v²
-8. Magnus / lift force ½ ρ Cl A v² (ω̂ × v̂)
-9. Spin-decay in air (felt + viscosity)
+
+
+Tennis ball. The tennis ball is simulated as a rigid sphere with
+the same radius and mass as a real tennis ball, with a restitution
+of 0.9 and friction of 0.8. To simulate air friction and the effects of
+spin, we add external air drag force 𝐹𝑑 and Magnus force 𝐹𝑀 into
+the simulation as follows:
+𝐹𝑑 = 𝐶𝑑𝐴𝑣2/2 , 𝐹𝑀 = 𝐶𝐿𝐴𝑣2/2 , (10)
+where 𝑣 denotes the magnitude of the ball’s velocity and𝐴 = 𝜋𝜌𝑅2
+is
+a constant determined by the air density 𝜌 and the ball’s radius 𝑅. 𝐹𝑑
+is always opposite to the direction of the ball’s velocity, and𝐶𝑑
+refers
+to the air drag coefficient, which is set to a constant of 0.55. In tennis,
+topspin (forward ball rotation) imparts downward acceleration to
+the ball leading it to drop quickly. Backspin (backward ball rotation)
+produces upward acceleration causing the ball to float [Brody et al.
+2004]. 𝐶𝐿 refers to the lift coefficient due to the Magnus force and
+is computed as 1/(2 + 𝑣/𝑣spin) where 𝑣spin denotes the magnitude
+of ball’s spin velocity (the relative speed of the surface of the ball
+compared to its center point). 𝐹𝑀 is always perpendicular to the
+direction of the ball’s angular velocity (following right-hand rule)
+and points downwards for topspin and upwards for backspin.
 
 
 */
