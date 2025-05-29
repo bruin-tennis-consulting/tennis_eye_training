@@ -2,14 +2,16 @@
 
 public class BallController : MonoBehaviour
 {
-    public Vector3 initialVelocity = new Vector3(0f, 0f, 0f); 
-    public float spinDownwardForce = 5f; // increased topspin effect
-    public float spinSpeed = 720f; // increased spin speed (degrees per second)
+    public Vector3 initialVelocity = new Vector3(0f, 0f, 0f);
+    public Vector3 initialAngularVelocity = new Vector3(0f, 0f, 0f); // Use z-direction for current demonstration
     public Vector3 courtTarget = new Vector3(0, 0, 0);
+    public float spinConstant = 1f;
 
     private Rigidbody rb;
     private Vector3 gravity = new Vector3(0f, -9.81f, 0f); // 0x, -9.81y, 0z
     private float ballArea = (Mathf.PI* 1.204f * Mathf.Pow(0.33f, 2.0f)); // Replace 1.204f with ball radius
+    bool isGrounded = false;
+    private Vector3 previous;
 
     private 
 
@@ -17,8 +19,27 @@ public class BallController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         Vector3 ballPos = rb.position;
-        //Vector3 dir = (courtTarget - ballPos).normalized;
+
+        // Initial conditions
         rb.linearVelocity = initialVelocity;
+        rb.angularVelocity = initialAngularVelocity;
+    }
+
+
+void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            rb.angularVelocity *= 0.8f;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Court"))
+        {
+            isGrounded = false;
+        }
     }
 
     void FixedUpdate()
@@ -29,22 +50,23 @@ public class BallController : MonoBehaviour
         // Apply Rotation?
 
         // Magnus Force
-        float C_L = 1.0f / (2.0f + rb.linearVelocity.magnitude / rb.angularVelocity.magnitude); // Lift Coefficient
-        float F_M = 0.5f * C_L * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f); // Implement wind speed later
-        Vector3 Force_Magnus = Vector3.Cross(rb.angularVelocity, rb.linearVelocity).normalized * F_M;
-        rb.AddForce(Force_Magnus, ForceMode.Acceleration);
+        if (!isGrounded)
+        {
+            float C_L = 1.0f / (2.0f + rb.linearVelocity.magnitude / (rb.angularVelocity.magnitude * 0.33f)); // Lift Coefficient
+            float F_M = spinConstant * 0.5f * C_L * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f); // Implement wind speed later
+            Vector3 Force_Magnus = Vector3.Cross(rb.angularVelocity, rb.linearVelocity).normalized * F_M;
+            rb.AddForce(Force_Magnus, ForceMode.Acceleration);
+        }
 
         // Drag Force
-        float C_d = 0.55f;
+        float C_d = 0.1f;
         float F_d = 0.5f * C_d * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f);
         Vector3 Force_Drag = -1 * rb.linearVelocity.normalized * F_d;
         rb.AddForce(Force_Drag, ForceMode.Acceleration);
 
-
-        // 𝐹𝑑 = 𝐶𝑑𝐴𝑣2/2
+        Debug.Log("Vel: " + rb.linearVelocity + "  Angular: " + rb.angularVelocity);
     }
 }
-
 
 /*
 

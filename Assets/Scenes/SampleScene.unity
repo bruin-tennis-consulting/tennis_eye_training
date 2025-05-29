@@ -292,13 +292,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7593474, z: -0, w: 0.6506855}
-  m_LocalPosition: {x: 24.8, y: 3, z: 6}
+  m_LocalRotation: {x: -0, y: -0.80203813, z: -0, w: 0.5972729}
+  m_LocalPosition: {x: 28.5, y: 3, z: 7.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -98.813, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -106.65, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +591,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985994014}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: b9a3f9942b2086844a8de5635e7522cb, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -748,9 +748,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1929316251392540815, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: m_Drag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929316251392540815, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929316251392540815, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1929316251392540815, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: spinConstant
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: initialVelocity.x
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: initialVelocity.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: initialVelocity.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
       propertyPath: spinDownwardForce
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146604821812454989, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
+      propertyPath: initialAngularVelocity.z
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 5536171273649200593, guid: 17a84ae22b6fc3e44a312e400a3bc274, type: 3}
       propertyPath: m_LocalPosition.x
