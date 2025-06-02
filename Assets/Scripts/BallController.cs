@@ -23,24 +23,26 @@ public class BallController : MonoBehaviour
         // Initial conditions
         rb.linearVelocity = initialVelocity;
         rb.angularVelocity = initialAngularVelocity;
+        Debug.Log("Set angularVelocity to: " + rb.angularVelocity);
     }
 
-
-void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+    /*
+    void OnCollisionEnter(Collision collision)
         {
-            rb.angularVelocity *= 0.8f;
+            if (collision.gameObject.CompareTag("Court"))
+            {
+                rb.angularVelocity *= 0.8f;
+            }
         }
-    }
 
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Court"))
+        void OnCollisionExit(Collision collision)
         {
-            isGrounded = false;
+            if (collision.gameObject.CompareTag("Court"))
+            {
+                isGrounded = false;
+            }
         }
-    }
+    */
 
     void FixedUpdate()
     {
@@ -55,7 +57,8 @@ void OnCollisionEnter(Collision collision)
             float C_L = 1.0f / (2.0f + rb.linearVelocity.magnitude / (rb.angularVelocity.magnitude * 0.33f)); // Lift Coefficient
             float F_M = spinConstant * 0.5f * C_L * ballArea * Mathf.Pow(rb.linearVelocity.magnitude, 2.0f); // Implement wind speed later
             Vector3 Force_Magnus = Vector3.Cross(rb.angularVelocity, rb.linearVelocity).normalized * F_M;
-            rb.AddForce(Force_Magnus, ForceMode.Acceleration);
+            Vector3 Accel_Magnus = Force_Magnus / rb.mass;
+            rb.linearVelocity += Accel_Magnus * Time.fixedDeltaTime;
         }
 
         // Drag Force
@@ -64,9 +67,28 @@ void OnCollisionEnter(Collision collision)
         Vector3 Force_Drag = -1 * rb.linearVelocity.normalized * F_d;
         rb.AddForce(Force_Drag, ForceMode.Acceleration);
 
-        Debug.Log("Vel: " + rb.linearVelocity + "  Angular: " + rb.angularVelocity);
+        //Debug.Log("Vel: " + rb.linearVelocity + "  Angular: " + rb.angularVelocity);
     }
 }
+
+/*
+ 
+ 
+Demonstration Starting Values:
+Body Serve 1:
+Vel: 80 0 10
+Ang: 0 0 -50
+
+Kick Serve 1:
+
+ 
+ 
+ 
+ 
+ 
+*/
+
+
 
 /*
 
