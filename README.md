@@ -1,55 +1,113 @@
-<<<<<<< HEAD
-# Eye Tracking Game
+#  Tennis Eye Training
 
-A Python game built with the [Ursina Engine](https://github.com/pokepetter/ursina) that simulates a tennis court environment. It features ball physics, realistic bounces with spin, and visual cues like a fading contact marker that shows where the ball changes direction.
+A realistic Unity-based simulator that helps tennis players train their perception of ball spin bounce and trajectory. Developed by Bruin Tennis Consulting this project leverages Unitys physics engine and custom scripts to simulate game-like tennis ball behavior with a focus on spin dynamics bounce realism and player feedback.
 
-![Demo GIF](Assets/demo.gif)
+---
 
-## Features
+##  Project Goals
 
-- **3D Tennis Court Environment:** Ground, net, court lines, and a bounding box for better depth perception.
-- **Realistic Ball Physics:** Includes gravity, bounce dynamics, and spin.
-- **Visual Contact Marker:** A marker appears at the point of directional change and fades over time.
-- **Simple & Clean Code:** Designed for readability and ease of modifications.
+- Model realistic tennis ball physics including Magnus effect and angular momentum.
+- Create an immersive visual simulation to train anticipation and reaction to spin and bounce.
+- Enable easy tuning and extension for research training or competitive analysis.
 
-## Requirements
+---
 
-- **Python 3.6+** (tested with Python 3.8+)
-- **Ursina Engine**
+##  Features
 
-=======
-# Project Ace: VR/AR Tennis Opponent Simulation
+-  Unity Rigidbody physics integration  
+-  Accurate spin-to-bounce behavior (topspin slice flat)
+-  Magnus effect simulation for realistic arc curves  
+-  Modular ball control scripts (e.g. `BallController.cs`)  
+-  Court target placement and trajectory control  
+-  Adjustable parameters for drag mass damping and friction
 
-## 1. Problem
+---
 
-Professional tennis lacks tools for hyper-specific, first-person POV warmups. Existing methods like film review are passive and fail to replicate the crucial timing and feel of facing a specific opponent's unique shot style.
+##  Project Structure
 
-## 2. Our Solution: Data-Driven VR/AR Training
+```
+tennis_eye_training/
+ Assets/
+    Scripts/
+       BallController.cs     # Controls spin Magnus effect trajectory
+    Materials/                # Physic materials for ball and court
+    Scenes/                   # Unity scenes for testing and demos
+    Prefabs/                  # Reusable ball/court prefabs
+ README.md
+```
 
-Project Ace creates an immersive VR/AR training environment using real opponent data. Players practice against data-driven simulations of upcoming opponents, focusing on serve returns and shot recognition.
+---
 
-**Partnership:** We utilize ball movement and player tracking data from the 2024-2025 **UCLA Tennis** season via their Sports Analytics Consulting Team.
+##  Getting Started
 
-## 3. Core Features
+### Prerequisites
 
-*   **Opponent Replication (USP):** Train against the *actual* physics, timing, and placement of specific opponents' shots (especially serves) derived from match data. Experience your opponent *before* the match.
-*   **Realistic Physics:** Accurately models collegiate-level ball flight and behavior.
-*   **First-Person POV:** Immersive training perspective enhances reaction and recognition.
-*   **VR Deep Practice:** Focused drills on specific shots and timing sequences.
-*   **Customizable Scenarios:** Isolate and repeat critical match moments.
-*   **Multi-Angle Analysis:** Review simulated plays from any viewpoint post-drill.
+- Unity 2022.x or newer
+- Physics Materials set up on
+  - Tennis Ball (e.g. with low bounciness and tuned friction)
+  - Court (high friction no bounce)
 
-## 4. Snap AR Integration Concept
+### Running the Simulation
 
-Leverage Snap AR to bring data insights onto the real court:
+1. Clone the repository
 
-1.  **On-Court Visualizations:** Use phone/Spectacles to overlay opponent serve trajectories, speed, and bounce points during practice or warmups.
-2.  **AR Tactical Board:** Project interactive 3D court visualizations onto surfaces for strategy sessions showing opponent tendencies (serve maps, rally patterns).
-3.  **AR Drill Guides:** Place AR targets or cues on the court for guided physical practice based on opponent data.
+   ```bash
+   git clone https//github.com/bruin-tennis-consulting/tennis_eye_training.git
+   cd tennis_eye_training
+   ```
 
-Snap AR makes data actionable and accessible outside the full VR simulation.
+2. Open the project in Unity Hub.
 
-## 5. Goal (Snap AR Competition)
+3. Load the main scene under `Assets/Scenes/`.
 
-Develop the first platform allowing interactive practice against specific, data-driven opponents. We seek to showcase this innovative sports training application within the Snap ecosystem and explore AR's potential for accessible, real-world training extensions.
->>>>>>> fc960a62a130b233547996b9498a2dde24bcb73d
+4. Play the scene to test trajectory and bounce behavior.
+
+---
+
+##  Customization
+
+Adjust these variables in `BallController.cs`
+
+```csharp
+public Vector3 initialVelocity      // Launch speed and direction
+public Vector3 initialAngularVelocity  // Spin direction and rate
+public Vector3 courtTarget          // Desired impact location
+```
+
+You can also modify
+
+- Rigidbody drag mass and angular drag
+- Physics materials (friction bounciness)
+- Air resistance model for advanced spin decay
+
+---
+
+##  Known Issues
+
+- Spin direction may invert unrealistically on bounce  
+- Some bouncing behavior appears exaggerated due to Unitys default physics  
+- Work in progress on post-bounce spin decay and friction loss
+
+---
+
+##  Contributing
+
+Pull requests are welcome Please open an issue first if youd like to discuss a feature or bug fix. Were especially interested in
+
+- Physics tuning experts
+- Computer vision researchers for video training input
+- UI/UX contributors for training feedback overlays
+
+---
+
+##  License
+
+This project is licensed under the MIT License.
+
+---
+
+##  Authors
+
+Developed by the [Bruin Tennis Consulting](https//github.com/bruin-tennis-consulting) team.  
+Lead Shivani Shourya  
+Contributors [Your Name Here  PR welcome]
