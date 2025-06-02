@@ -28,7 +28,7 @@ public class BallController : MonoBehaviour
 
 void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Court"))
         {
             rb.angularVelocity *= 0.8f;
         }
