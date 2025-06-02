@@ -109,5 +109,6 @@ This project is licensed under the MIT License.
 ##  Authors
 
 Developed by the [Bruin Tennis Consulting](https//github.com/bruin-tennis-consulting) team.  
-Lead Shivani Shourya  
-Contributors [Your Name Here  PR welcome]
+Lead: Jayden Spurgiasz
+PM: Kevin Cao
+Contributors: Jerry Shi, Jason Fan, Collin MacPherson
